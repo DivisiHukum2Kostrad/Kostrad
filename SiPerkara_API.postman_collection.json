@@ -1,0 +1,372 @@
+{
+    "info": {
+        "name": "SiPerkara API",
+        "description": "REST API for SiPerkara Case Management System",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "version": "1.0.0"
+    },
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{token}}",
+                "type": "string"
+            }
+        ]
+    },
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://127.0.0.1:8000/api",
+            "type": "string"
+        },
+        {
+            "key": "token",
+            "value": "",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Login",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "if (pm.response.code === 200) {",
+                                    "    var jsonData = pm.response.json();",
+                                    "    pm.environment.set('token', jsonData.token);",
+                                    "    pm.collectionVariables.set('token', jsonData.token);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ],
+                    "request": {
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"admin@siperkara.mil.id\",\n  \"password\": \"admin123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/login",
+                            "host": ["{{base_url}}"],
+                            "path": ["login"]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Me",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/me",
+                            "host": ["{{base_url}}"],
+                            "path": ["me"]
+                        }
+                    }
+                },
+                {
+                    "name": "Logout",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/logout",
+                            "host": ["{{base_url}}"],
+                            "path": ["logout"]
+                        }
+                    }
+                },
+                {
+                    "name": "Logout All Devices",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/logout-all",
+                            "host": ["{{base_url}}"],
+                            "path": ["logout-all"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Cases",
+            "item": [
+                {
+                    "name": "List All Cases",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/perkaras?per_page=15&page=1",
+                            "host": ["{{base_url}}"],
+                            "path": ["perkaras"],
+                            "query": [
+                                {
+                                    "key": "per_page",
+                                    "value": "15"
+                                },
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "search",
+                                    "value": "",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "Proses",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "priority",
+                                    "value": "High",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "kategori",
+                                    "value": "1",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "deadline_status",
+                                    "value": "overdue",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "assigned_to",
+                                    "value": "",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "sort_by",
+                                    "value": "created_at",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "sort_dir",
+                                    "value": "desc",
+                                    "disabled": true
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Case by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/perkaras/1",
+                            "host": ["{{base_url}}"],
+                            "path": ["perkaras", "1"]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Case",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"nomor_perkara\": \"PKR-API-001/2025\",\n  \"jenis_perkara\": \"Pelanggaran Disiplin\",\n  \"nama\": \"Test Case via API\",\n  \"deskripsi\": \"Deskripsi singkat kasus\",\n  \"kategori_id\": 1,\n  \"tanggal_masuk\": \"2025-12-11\",\n  \"tanggal_perkara\": \"2025-12-10\",\n  \"status\": \"Proses\",\n  \"priority\": \"High\",\n  \"deadline\": \"2025-12-31\",\n  \"progress\": 0,\n  \"estimated_days\": 30,\n  \"assigned_to\": \"John Doe\",\n  \"keterangan\": \"Keterangan tambahan\",\n  \"internal_notes\": \"Catatan internal\",\n  \"tags\": \"Mendesak, API Test\",\n  \"is_public\": true\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/perkaras",
+                            "host": ["{{base_url}}"],
+                            "path": ["perkaras"]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Case",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"nomor_perkara\": \"PKR-API-001/2025\",\n  \"jenis_perkara\": \"Pelanggaran Disiplin Updated\",\n  \"nama\": \"Test Case via API - Updated\",\n  \"deskripsi\": \"Deskripsi yang diperbarui\",\n  \"kategori_id\": 1,\n  \"tanggal_masuk\": \"2025-12-11\",\n  \"status\": \"Proses\",\n  \"priority\": \"Urgent\",\n  \"progress\": 50,\n  \"is_public\": true\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/perkaras/1",
+                            "host": ["{{base_url}}"],
+                            "path": ["perkaras", "1"]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Case",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/perkaras/1",
+                            "host": ["{{base_url}}"],
+                            "path": ["perkaras", "1"]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Statistics",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/perkaras/statistics",
+                            "host": ["{{base_url}}"],
+                            "path": ["perkaras", "statistics"]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Documents",
+            "item": [
+                {
+                    "name": "List Documents for Case",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/perkaras/1/documents",
+                            "host": ["{{base_url}}"],
+                            "path": ["perkaras", "1", "documents"]
+                        }
+                    }
+                },
+                {
+                    "name": "Upload Document",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "nama_dokumen",
+                                    "value": "Surat Keputusan",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "jenis_dokumen",
+                                    "value": "SK",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "kategori_dokumen",
+                                    "value": "Surat Keputusan",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "file",
+                                    "type": "file",
+                                    "src": []
+                                },
+                                {
+                                    "key": "keterangan",
+                                    "value": "Surat keputusan final",
+                                    "type": "text"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/perkaras/1/documents",
+                            "host": ["{{base_url}}"],
+                            "path": ["perkaras", "1", "documents"]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Document by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/documents/1",
+                            "host": ["{{base_url}}"],
+                            "path": ["documents", "1"]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Document Metadata",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"nama_dokumen\": \"Surat Keputusan Updated\",\n  \"jenis_dokumen\": \"SK\",\n  \"kategori_dokumen\": \"Surat Keputusan\",\n  \"keterangan\": \"Updated description\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/documents/1",
+                            "host": ["{{base_url}}"],
+                            "path": ["documents", "1"]
+                        }
+                    }
+                },
+                {
+                    "name": "Download Document",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/documents/1/download",
+                            "host": ["{{base_url}}"],
+                            "path": ["documents", "1", "download"]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Document",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/documents/1",
+                            "host": ["{{base_url}}"],
+                            "path": ["documents", "1"]
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
