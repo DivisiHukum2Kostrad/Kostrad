@@ -47,8 +47,10 @@ class DashboardController extends Controller
 
         // Data perkara per kategori (for pie chart)
         $perkara_per_kategori = Kategori::withCount('perkaras')
-            ->having('perkaras_count', '>', 0)
-            ->get();
+        ->get()
+        ->filter(function($kategori) {
+                return $kategori->perkaras_count > 0;
+        });
 
         // Monthly trend data (last 6 months)
         $monthly_data = $this->getMonthlyTrend();

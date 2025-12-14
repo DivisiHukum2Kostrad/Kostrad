@@ -28,7 +28,7 @@
                     </div>
                     <div>
                         <h1 class="text-white font-bold text-lg">DivisiHukum2Kostrad</h1>
-                        <p class="text-green-200 text-xs">Divisi 2 Kostrad</p>
+                        <p class="text-green-200 text-xs">SIPERKARA DIV-2</p>
                     </div>
                 </div>
                 <div class="hidden md:flex space-x-8">
@@ -68,10 +68,7 @@
                         class="px-6 py-3 bg-green-800 text-white rounded-lg font-semibold hover:bg-green-900 transition duration-300">
                         Cari
                     </button>
-                    <a href="{{ route('perkara.public') }}"
-                        class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition duration-300">
-                        Reset
-                    </a>
+
                 </div>
             </form>
         </div>
