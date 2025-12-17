@@ -110,7 +110,7 @@
                 <!-- Action Buttons -->
                 <div class="flex gap-4">
                     <button type="submit"
-                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition duration-150">
+                        class="flex-1 bg-green-800 hover:bg-green-900 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition duration-150">
                         <i class="fas fa-save mr-2"></i>Simpan Perubahan
                     </button>
                     <a href="{{ route('admin.users.index') }}"
@@ -123,8 +123,8 @@
 
         <!-- User Info -->
         <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <p class="text-sm text-blue-800">
+            <div class="p-4 bg-green-50 border border-green-200 rounded-lg">
+                <p class="text-sm text-green-800">
                     <i class="fas fa-calendar-alt mr-2"></i>
                     <strong>Bergabung:</strong> {{ $user->created_at->format('d F Y') }}
                 </p>

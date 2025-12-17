@@ -11,6 +11,7 @@ class ActivityLog extends Model
         'loggable_type',
         'loggable_id',
         'user_id',
+        'action',
         'description',
         'old_values',
         'new_values',

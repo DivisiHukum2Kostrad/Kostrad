@@ -63,11 +63,11 @@
                     @enderror
 
                     <!-- Role Info -->
-                    <div class="mt-3 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                        <p class="text-sm text-blue-800 font-semibold mb-2">
+                    <div class="mt-3 p-4 bg-green-50 border border-green-200 rounded-lg">
+                        <p class="text-sm text-green-800 font-semibold mb-2">
                             <i class="fas fa-info-circle mr-1"></i>Perbedaan Role:
                         </p>
-                        <ul class="text-sm text-blue-700 space-y-1 ml-5 list-disc">
+                        <ul class="text-sm text-green-700 space-y-1 ml-5 list-disc">
                             <li><strong>Admin:</strong> Dapat mengelola user, melihat semua perkara, menghapus data</li>
                             <li><strong>Operator:</strong> Dapat mengelola perkara dan dokumen (tidak dapat mengelola user)
                             </li>
@@ -101,7 +101,7 @@
                 <!-- Action Buttons -->
                 <div class="flex gap-4">
                     <button type="submit"
-                        class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition duration-150">
+                        class="flex-1 bg-green-800 hover:bg-green-900 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition duration-150">
                         <i class="fas fa-save mr-2"></i>Simpan User
                     </button>
                     <a href="{{ route('admin.users.index') }}"

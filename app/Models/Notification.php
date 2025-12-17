@@ -54,11 +54,25 @@ class Notification extends Model
     public function getIconAttribute()
     {
         return match($this->type) {
-            'case_assigned' => 'fa-user-plus text-blue-600',
-            'status_changed' => 'fa-exchange-alt text-green-600',
-            'document_uploaded' => 'fa-file-upload text-purple-600',
-            'deadline_reminder' => 'fa-clock text-red-600',
-            default => 'fa-bell text-gray-600',
+            'case_assigned' => '<i class="fas fa-user-plus"></i>',
+            'status_changed' => '<i class="fas fa-exchange-alt"></i>',
+            'document_uploaded' => '<i class="fas fa-file-upload"></i>',
+            'deadline_reminder' => '<i class="fas fa-clock"></i>',
+            'case_completed' => '<i class="fas fa-check-circle"></i>',
+            default => '<i class="fas fa-bell"></i>',
+        };
+    }
+
+    // Get icon color class based on type
+    public function getIconColorAttribute()
+    {
+        return match($this->type) {
+            'case_assigned' => 'text-blue-600',
+            'status_changed' => 'text-green-600',
+            'document_uploaded' => 'text-purple-600',
+            'deadline_reminder' => 'text-red-600',
+            'case_completed' => 'text-green-600',
+            default => 'text-gray-600',
         };
     }
 
@@ -70,6 +84,7 @@ class Notification extends Model
             'status_changed' => 'bg-green-100',
             'document_uploaded' => 'bg-purple-100',
             'deadline_reminder' => 'bg-red-100',
+            'case_completed' => 'bg-green-100',
             default => 'bg-gray-100',
         };
     }

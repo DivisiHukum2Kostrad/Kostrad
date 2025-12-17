@@ -89,12 +89,18 @@
                         <thead class="bg-gradient-to-r from-green-800 to-green-900 text-white">
                             <tr>
                                 <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">No</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Nomor Perkara</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Tanggal Register</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Klasifikasi Perkara</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Para Pihak</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Status Perkara</th>
-                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Lama Proses</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Nomor Perkara
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Tanggal
+                                    Register</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Klasifikasi
+                                    Perkara</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Para Pihak
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Status
+                                    Perkara</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Lama Proses
+                                </th>
                                 <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider">Link</th>
                             </tr>
                         </thead>
@@ -111,13 +117,14 @@
                                         {{ $perkara->tanggal_pendaftaran ? $perkara->tanggal_pendaftaran->format('d M Y') : '-' }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="text-sm text-gray-900">{{ $perkara->klasifikasi_perkara ?: '-' }}</div>
+                                        <div class="text-sm text-gray-900">{{ $perkara->klasifikasi_perkara ?: '-' }}
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="mb-2">
                                             <span class="text-xs font-semibold text-gray-700">Oditur:</span>
-                                            @if($perkara->oditur && is_array($perkara->oditur))
-                                                @foreach($perkara->oditur as $oditur)
+                                            @if ($perkara->oditur && is_array($perkara->oditur))
+                                                @foreach ($perkara->oditur as $oditur)
                                                     <div class="text-sm text-gray-900">{{ $oditur }}</div>
                                                 @endforeach
                                             @else
@@ -126,8 +133,8 @@
                                         </div>
                                         <div>
                                             <span class="text-xs font-semibold text-gray-700">Terdakwa:</span>
-                                            @if($perkara->terdakwa && is_array($perkara->terdakwa))
-                                                @foreach($perkara->terdakwa as $terdakwa)
+                                            @if ($perkara->terdakwa && is_array($perkara->terdakwa))
+                                                @foreach ($perkara->terdakwa as $terdakwa)
                                                     <div class="text-sm text-gray-900">{{ $terdakwa }}</div>
                                                 @endforeach
                                             @else
@@ -136,14 +143,17 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-3 py-1 text-xs font-semibold rounded-full {{ $perkara->status_badge }}">
+                                        <span
+                                            class="px-3 py-1 text-xs font-semibold rounded-full {{ $perkara->status_badge }}">
                                             {{ $perkara->status }}
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                                         @php
                                             if ($perkara->tanggal_selesai) {
-                                                $lamaProses = $perkara->tanggal_masuk->diffInDays($perkara->tanggal_selesai);
+                                                $lamaProses = $perkara->tanggal_masuk->diffInDays(
+                                                    $perkara->tanggal_selesai,
+                                                );
                                             } else {
                                                 $lamaProses = $perkara->tanggal_masuk->diffInDays(now());
                                             }
@@ -152,7 +162,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                                         <a href="{{ route('perkara.public.show', $perkara->id) }}"
-                                           class="text-green-800 hover:text-green-900 font-semibold hover:underline">
+                                            class="text-green-800 hover:text-green-900 font-semibold hover:underline">
                                             [detail]
                                         </a>
                                     </td>

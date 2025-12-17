@@ -100,7 +100,7 @@
                     @if (auth()->user()->hasPermission('manage_users'))
                         <div class="mt-6 space-y-2">
                             <a href="{{ route('admin.users.edit', $user) }}"
-                                class="block w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold text-center transition duration-150">
+                                class="block w-full bg-green-800 hover:bg-green-900 text-white px-4 py-2 rounded-lg font-semibold text-center transition duration-150">
                                 <i class="fas fa-edit mr-2"></i>Edit User
                             </a>
 

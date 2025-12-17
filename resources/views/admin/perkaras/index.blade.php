@@ -6,8 +6,8 @@
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
             <div>
-                <h2 class="text-3xl font-bold text-gray-900">Kelola Perkara</h2>
-                <p class="text-gray-600 mt-1">Daftar semua perkara yang terdaftar</p>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Kelola Perkara</h2>
+                <p class="text-gray-600 dark:text-gray-400 mt-1">Daftar semua perkara yang terdaftar</p>
             </div>
             <a href="{{ route('admin.perkaras.create') }}"
                 class="bg-green-800 hover:bg-green-900 text-white px-6 py-3 rounded-lg font-semibold transition duration-300 flex items-center gap-2">
@@ -19,15 +19,16 @@
         </div>
 
         @if (session('success'))
-            <div class="mb-6 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-lg">
+            <div
+                class="mb-6 p-4 bg-green-50 dark:bg-green-900/30 border-l-4 border-green-500 text-green-700 dark:text-green-400 rounded-lg">
                 {{ session('success') }}
             </div>
         @endif
 
         <!-- Advanced Filter & Search -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-bold text-gray-900">Filter & Pencarian</h3>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Filter & Pencarian</h3>
                 <div class="flex gap-2">
                     <a href="{{ route('admin.perkaras.export.excel', request()->query()) }}"
                         class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition flex items-center gap-2">
@@ -52,17 +53,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                     <!-- Search -->
                     <div class="lg:col-span-3">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Pencarian</label>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Pencarian</label>
                         <input type="text" name="search" value="{{ request('search') }}"
                             placeholder="Cari nomor/jenis perkara/keterangan..."
-                            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none">
+                            class="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-green-800 dark:focus:border-green-600 focus:outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                     </div>
 
                     <!-- Status Filter -->
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Status</label>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Status</label>
                         <select name="status"
-                            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none">
+                            class="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-green-800 dark:focus:border-green-600 focus:outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                             <option value="all">Semua Status</option>
                             <option value="Proses" {{ request('status') === 'Proses' ? 'selected' : '' }}>Proses</option>
                             <option value="Selesai" {{ request('status') === 'Selesai' ? 'selected' : '' }}>Selesai</option>
@@ -71,9 +72,9 @@
 
                     <!-- Category Filter -->
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Kategori</label>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Kategori</label>
                         <select name="kategori"
-                            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none">
+                            class="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-green-800 dark:focus:border-green-600 focus:outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                             <option value="all">Semua Kategori</option>
                             @foreach ($kategoris as $kat)
                                 <option value="{{ $kat->id }}" {{ request('kategori') == $kat->id ? 'selected' : '' }}>
@@ -84,9 +85,9 @@
 
                     <!-- Priority Filter -->
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Prioritas</label>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Prioritas</label>
                         <select name="priority"
-                            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none">
+                            class="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-green-800 dark:focus:border-green-600 focus:outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                             <option value="all">Semua Prioritas</option>
                             <option value="Urgent" {{ request('priority') === 'Urgent' ? 'selected' : '' }}>Mendesak
                             </option>
@@ -98,9 +99,10 @@
 
                     <!-- Deadline Status Filter -->
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Status Deadline</label>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Status
+                            Deadline</label>
                         <select name="deadline_status"
-                            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none">
+                            class="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-green-800 dark:focus:border-green-600 focus:outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                             <option value="all">Semua</option>
                             <option value="overdue" {{ request('deadline_status') === 'overdue' ? 'selected' : '' }}>
                                 Overdue</option>
@@ -114,9 +116,10 @@
 
                     <!-- Assigned To Filter -->
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Ditugaskan Kepada</label>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Ditugaskan
+                            Kepada</label>
                         <select name="assigned_to"
-                            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none">
+                            class="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-green-800 dark:focus:border-green-600 focus:outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                             <option value="all">Semua</option>
                             @foreach ($assignedUsers as $assignee)
                                 <option value="{{ $assignee }}"
@@ -128,9 +131,9 @@
 
                     <!-- Public Filter -->
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Visibilitas</label>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Visibilitas</label>
                         <select name="is_public"
-                            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none">
+                            class="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-green-800 dark:focus:border-green-600 focus:outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                             <option value="">Semua</option>
                             <option value="1" {{ request('is_public') === '1' ? 'selected' : '' }}>Publik</option>
                             <option value="0" {{ request('is_public') === '0' ? 'selected' : '' }}>Privat</option>
@@ -139,16 +142,18 @@
 
                     <!-- Date From -->
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tanggal Dari</label>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Tanggal
+                            Dari</label>
                         <input type="date" name="tanggal_dari" value="{{ request('tanggal_dari') }}"
-                            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none">
+                            class="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-green-800 dark:focus:border-green-600 focus:outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                     </div>
 
                     <!-- Date To -->
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tanggal Sampai</label>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Tanggal
+                            Sampai</label>
                         <input type="date" name="tanggal_sampai" value="{{ request('tanggal_sampai') }}"
-                            class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none">
+                            class="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-green-800 dark:focus:border-green-600 focus:outline-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
                     </div>
                 </div>
 
@@ -162,7 +167,7 @@
                         Terapkan Filter
                     </button>
                     <a href="{{ route('admin.perkaras.index') }}"
-                        class="bg-gray-200 text-gray-700 px-6 py-2 rounded-lg font-semibold hover:bg-gray-300 transition flex items-center gap-2">
+                        class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-6 py-2 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition flex items-center gap-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -174,24 +179,24 @@
         </div>
 
         <!-- Sorting Options -->
-        <div class="bg-white rounded-xl shadow-lg p-4 mb-6">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-4 mb-6">
             <div class="flex items-center justify-between">
-                <span class="text-sm font-semibold text-gray-700">Urutkan berdasarkan:</span>
+                <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Urutkan berdasarkan:</span>
                 <div class="flex gap-2">
                     <a href="{{ route('admin.perkaras.index', array_merge(request()->query(), ['sort_by' => 'created_at', 'sort_dir' => 'desc'])) }}"
-                        class="px-3 py-1 rounded {{ request('sort_by', 'created_at') === 'created_at' ? 'bg-green-800 text-white' : 'bg-gray-200 text-gray-700' }} text-sm hover:bg-green-700 hover:text-white transition">
+                        class="px-3 py-1 rounded {{ request('sort_by', 'created_at') === 'created_at' ? 'bg-green-800 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300' }} text-sm hover:bg-green-700 hover:text-white transition">
                         Terbaru
                     </a>
                     <a href="{{ route('admin.perkaras.index', array_merge(request()->query(), ['sort_by' => 'deadline', 'sort_dir' => 'asc'])) }}"
-                        class="px-3 py-1 rounded {{ request('sort_by') === 'deadline' ? 'bg-green-800 text-white' : 'bg-gray-200 text-gray-700' }} text-sm hover:bg-green-700 hover:text-white transition">
+                        class="px-3 py-1 rounded {{ request('sort_by') === 'deadline' ? 'bg-green-800 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300' }} text-sm hover:bg-green-700 hover:text-white transition">
                         Deadline
                     </a>
                     <a href="{{ route('admin.perkaras.index', array_merge(request()->query(), ['sort_by' => 'priority', 'sort_dir' => 'asc'])) }}"
-                        class="px-3 py-1 rounded {{ request('sort_by') === 'priority' ? 'bg-green-800 text-white' : 'bg-gray-200 text-gray-700' }} text-sm hover:bg-green-700 hover:text-white transition">
+                        class="px-3 py-1 rounded {{ request('sort_by') === 'priority' ? 'bg-green-800 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300' }} text-sm hover:bg-green-700 hover:text-white transition">
                         Prioritas
                     </a>
                     <a href="{{ route('admin.perkaras.index', array_merge(request()->query(), ['sort_by' => 'progress', 'sort_dir' => 'desc'])) }}"
-                        class="px-3 py-1 rounded {{ request('sort_by') === 'progress' ? 'bg-green-800 text-white' : 'bg-gray-200 text-gray-700' }} text-sm hover:bg-green-700 hover:text-white transition">
+                        class="px-3 py-1 rounded {{ request('sort_by') === 'progress' ? 'bg-green-800 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300' }} text-sm hover:bg-green-700 hover:text-white transition">
                         Progress
                     </a>
                 </div>
@@ -199,7 +204,7 @@
         </div>
 
         <!-- Table -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead class="bg-gradient-to-r from-green-800 to-green-900 text-white">
@@ -213,19 +218,20 @@
                             <th class="px-6 py-4 text-left text-sm font-bold uppercase">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200">
+                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                         @forelse($perkaras as $perkara)
-                            <tr class="hover:bg-gray-50 transition">
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="font-semibold text-gray-900">{{ $perkara->nomor_perkara }}</div>
+                                    <div class="font-semibold text-gray-900 dark:text-white">{{ $perkara->nomor_perkara }}
+                                    </div>
                                     @if ($perkara->nama)
-                                        <div class="text-xs text-gray-500">{{ $perkara->nama }}</div>
+                                        <div class="text-xs text-gray-500 dark:text-gray-400">{{ $perkara->nama }}</div>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div>{{ $perkara->jenis_perkara }}</div>
+                                    <div class="text-gray-900 dark:text-white">{{ $perkara->jenis_perkara }}</div>
                                     @if ($perkara->assigned_to)
-                                        <div class="text-xs text-gray-500 mt-1">
+                                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                             <i class="fas fa-user-tag"></i> {{ $perkara->assigned_to }}
                                         </div>
                                     @endif
@@ -236,25 +242,26 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if ($perkara->deadline)
                                         {!! $perkara->deadline_badge !!}
-                                        <div class="text-xs text-gray-500 mt-1">
+                                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
                                             {{ $perkara->deadline->format('d M Y') }}
                                         </div>
                                     @else
-                                        <span class="text-gray-400 text-sm">-</span>
+                                        <span class="text-gray-400 dark:text-gray-500 text-sm">-</span>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4">
                                     @if ($perkara->progress !== null)
                                         <div class="flex items-center gap-2">
-                                            <div class="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-                                                <div class="h-full bg-green-600"
+                                            <div
+                                                class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                                <div class="h-full bg-green-600 dark:bg-green-500"
                                                     style="width: {{ $perkara->progress }}%"></div>
                                             </div>
                                             <span
-                                                class="text-xs font-semibold text-gray-600">{{ $perkara->progress }}%</span>
+                                                class="text-xs font-semibold text-gray-600 dark:text-gray-400">{{ $perkara->progress }}%</span>
                                         </div>
                                     @else
-                                        <span class="text-gray-400 text-sm">-</span>
+                                        <span class="text-gray-400 dark:text-gray-500 text-sm">-</span>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">

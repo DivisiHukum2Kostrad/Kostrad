@@ -53,6 +53,7 @@ php artisan key:generate
 
 # 4. Configure database in .env, then:
 php artisan migrate --seed
+# This will create 220+ realistic dummy records for testing
 
 # 5. Create storage link
 php artisan storage:link
@@ -61,7 +62,12 @@ php artisan storage:link
 php artisan serve
 ```
 
-Access at http://127.0.0.1:8000 | Default login: `admin@kostrad.mil.id` / `password`
+**Access:** http://127.0.0.1:8000
+
+**Test Accounts:**
+
+-   Admin: `admin@kostrad.mil.id` / `password` (Full access)
+-   Operator: `operator@kostrad.mil.id` / `password` (Limited access)
 
 ---
 
@@ -131,16 +137,18 @@ Access at http://127.0.0.1:8000 | Default login: `admin@kostrad.mil.id` / `passw
 
 ### 🔐 Admin Features (10+ Advanced Features)
 
--   **Dashboard Analytics** - Statistik komprehensif dengan grafik interaktif
--   **Case Management** - CRUD lengkap dengan timeline & history tracking
--   **Personnel Management** - Manajemen data personel militer
+-   **Dashboard Analytics** - Statistik komprehensif dengan grafik interaktif Chart.js
+-   **Case Management** - CRUD lengkap dengan timeline, history tracking, dan advanced filters
+-   **Personnel Management** - Manajemen data personel militer dengan kategori lengkap
 -   **Document Management** - Upload, versioning, thumbnails, QR codes, digital signatures
 -   **Batch Operations** - Operasi massal untuk dokumen (sign, delete, download ZIP)
--   **Role-Based Access Control (RBAC)** - Kontrol akses berdasarkan role (Admin/Operator)
--   **Email Notifications** - Notifikasi otomatis untuk assignment, status changes, deadlines
--   **Activity Logs** - Audit trail lengkap untuk semua aktivitas sistem
--   **RESTful API** - API dengan Sanctum authentication untuk integrasi
--   **Dark Mode** - Toggle mode terang/gelap di seluruh admin panel
+-   **Role-Based Access Control (RBAC)** - Kontrol akses berdasarkan role (Admin/Operator) dengan 11 permissions
+-   **Email Notifications** - Notifikasi otomatis untuk assignment, status changes, deadlines, documents
+-   **Activity Logs** - Audit trail lengkap untuk semua aktivitas sistem dengan timeline view
+-   **RESTful API** - Complete API dengan Sanctum authentication untuk integrasi
+-   **Dark Mode** - System-wide dark mode dengan localStorage persistence dan keyboard shortcut (Ctrl+/)
+-   **User Management** - Complete user management dengan role assignment dan filtering
+-   **Database Seeder** - 7 comprehensive seeders dengan 220+ realistic dummy records untuk development
 
 ---
 
@@ -238,10 +246,16 @@ siperkara-div2/
 │   ├── filesystems.php             # Storage config
 │   └── sanctum.php                 # API auth config
 ├── database/
-│   ├── migrations/                 # Database migrations (30+)
-│   ├── seeders/                    # Data seeders
-│   │   ├── KategoriSeeder.php
-│   │   └── UserSeeder.php
+│   ├── migrations/                 # Database migrations (18 migrations)
+│   ├── seeders/                    # Data seeders (7 comprehensive seeders)
+│   │   ├── DatabaseSeeder.php      # Main seeder orchestrator
+│   │   ├── PersonelSeeder.php      # 15 military personnel
+│   │   ├── CompletePerkaraSeeder.php  # 10 case records
+│   │   ├── DokumenPerkaraSeeder.php   # ~25 documents
+│   │   ├── RiwayatPerkaraSeeder.php   # ~35 history entries
+│   │   ├── NotificationSeeder.php     # ~30 notifications
+│   │   ├── NotificationPreferenceSeeder.php  # 2 preference records
+│   │   └── ActivityLogSeeder.php      # ~100+ activity logs
 │   └── factories/                  # Model factories
 ├── public/
 │   ├── css/                        # Compiled CSS
@@ -763,29 +777,63 @@ APP_URL=http://localhost:8000
 
 ---
 
-## 🌱 Seeding Data
+## 🌱 Database Seeding
 
-### Default Admin User
-
-```php
-Email: admin@siperkara.mil.id
-Password: password123
-```
-
-### Sample Kategoris
-
-```php
-- Pidana (PID) - Red
-- Perdata (PDT) - Blue
-- Tata Usaha (TUN) - Purple
-- Disiplin Militer (DSP) - Yellow
-```
-
-### Seeder Command
+### Quick Seed (Fresh Migration + Seed)
 
 ```bash
-php artisan db:seed --class=DatabaseSeeder
+# Fresh migration with all seeders (recommended for development)
+php artisan migrate:fresh --seed
 ```
+
+This creates **220+ realistic dummy records**:
+
+-   2 Users (Admin + Operator)
+-   4 Categories
+-   15 Military Personnel
+-   10 Case Records (with realistic data)
+-   ~25 Documents (PDFs, images)
+-   ~35 Case History Entries
+-   ~30 Notifications
+-   2 Notification Preferences
+-   ~100+ Activity Logs
+
+### Test Accounts
+
+**Admin Account** (Full access to all features)
+
+```
+Email: admin@kostrad.mil.id
+Password: password
+```
+
+**Operator Account** (Limited access)
+
+```
+Email: operator@kostrad.mil.id
+Password: password
+```
+
+### Sample Categories
+
+-   **Pidana (PID)** - Red badge - Criminal cases
+-   **Perdata (PDT)** - Blue badge - Civil cases
+-   **Tata Usaha (TUN)** - Purple badge - Administrative cases
+-   **Disiplin Militer (DSP)** - Yellow badge - Military discipline cases
+
+### Individual Seeders
+
+```bash
+# Run specific seeder
+php artisan db:seed --class=PersonelSeeder
+php artisan db:seed --class=CompletePerkaraSeeder
+php artisan db:seed --class=ActivityLogSeeder
+
+# Reset and run all seeders
+php artisan migrate:refresh --seed
+```
+
+📖 **Complete seeder documentation**: See [DATABASE_SEEDER_GUIDE.md](DATABASE_SEEDER_GUIDE.md)
 
 ---
 
@@ -1108,17 +1156,30 @@ php test_api.php
 -   ✅ Feature #9: UI/UX Improvements (Dark Mode, Notifications)
 -   ✅ Feature #10: File Management Enhancements (Thumbnails, QR, Signatures)
 
+**Latest Updates:**
+
+-   ✅ System-wide dark mode with localStorage persistence
+-   ✅ Dark mode toggle button with keyboard shortcut (Ctrl+/)
+-   ✅ Complete dark mode consistency across all admin pages
+-   ✅ 7 comprehensive database seeders with 220+ realistic records
+-   ✅ User management page with role filtering
+-   ✅ Activity logs timeline view with advanced filtering
+-   ✅ Enhanced notification system with icon rendering
+
 **Database:**
 
 -   ✅ 11 tables with proper relationships
 -   ✅ All foreign keys and constraints in place
 -   ✅ Zero data integrity issues
+-   ✅ 18 migrations executed successfully
+-   ✅ 7 seeders creating 220+ test records
 
 **Testing:**
 
 -   ✅ 100% CRUD test pass rate
 -   ✅ Database consistency verified
 -   ✅ Navigation consistency audited
+-   ✅ All seeders tested and verified
 
 ### Version 1.0.0 (November 2024)
 
@@ -1361,11 +1422,13 @@ This software is proprietary and confidential. Unauthorized copying, distributio
 🎯 Features Complete:      10/10 (100%)
 📁 Code Files:             200+
 📝 Documentation Lines:    10,000+
+🌱 Database Seeders:       7 (220+ records)
 🧪 Test Coverage:          CRUD & API tested
 🔒 Security Level:         Production-ready
 ⚡ Query Performance:      9-11ms (avg)
 📱 Mobile Support:         Fully responsive
 🌐 Browser Support:        All modern browsers
+🎨 Dark Mode:              System-wide support
 ```
 
 ### 🚀 Ready for Production
@@ -1381,4 +1444,4 @@ This software is proprietary and confidential. Unauthorized copying, distributio
 
 **Made with ❤️ in Indonesia 🇮🇩 | For TNI AD Divisi 2 Kostrad**
 
-_Last updated: December 2025_
+_Last updated: December 17, 2025_

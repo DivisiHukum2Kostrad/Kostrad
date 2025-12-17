@@ -100,7 +100,7 @@
                                     <td class="px-6 py-4 text-center">
                                         <div class="flex items-center justify-center space-x-2">
                                             <a href="{{ route('admin.personels.edit', $personel->id) }}"
-                                                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold transition duration-300">
+                                                class="px-4 py-2 bg-green-800 hover:bg-green-900 text-white rounded-lg text-sm font-semibold transition duration-300">
                                                 <i class="fas fa-edit mr-1"></i>Edit
                                             </a>
                                             <form action="{{ route('admin.personels.destroy', $personel->id) }}"
