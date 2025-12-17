@@ -63,8 +63,8 @@
                         </div>
                         <div>
                             <h1 class="text-white font-bold text-lg group-hover:text-green-200 transition-colors">
-                                SIPERKARA DIV-2</h1>
-                            <p class="text-green-200 text-xs">Divisi 2 Kostrad</p>
+                                DivisiHukum2Kostrad</h1>
+                            <p class="text-green-200 text-xs">SIPERKARA DIV-2</p>
                         </div>
                     </a>
                 </div>

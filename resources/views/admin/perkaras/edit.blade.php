@@ -15,7 +15,7 @@
 
             {{-- SECTION: INFORMASI DASAR --}}
             <div class="mb-8 pb-8 border-b-2 border-gray-200">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">📋 Informasi Dasar</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-4"> Informasi Dasar</h3>
 
                 <!-- Nomor Perkara -->
                 <div class="mb-6">
@@ -102,7 +102,7 @@
 
             {{-- SECTION: PARA PIHAK --}}
             <div class="mb-8 pb-8 border-b-2 border-gray-200">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">👥 Para Pihak</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-4"> Para Pihak</h3>
 
                 <!-- Oditur -->
                 <div class="mb-6">
@@ -174,7 +174,7 @@
 
             {{-- SECTION: PASAL DAKWAAN --}}
             <div class="mb-8 pb-8 border-b-2 border-gray-200">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">⚖️ Pasal Dakwaan</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-4"> Pasal Dakwaan</h3>
 
                 <!-- Pasal Dakwaan -->
                 <div class="mb-6">
@@ -189,7 +189,7 @@
 
             {{-- SECTION: INFORMASI SURAT --}}
             <div class="mb-8 pb-8 border-b-2 border-gray-200">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">📄 Informasi Surat & Dokumen</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-4"> Informasi Surat & Dokumen</h3>
 
                 <!-- Surat Pelimpahan -->
                 <div class="grid md:grid-cols-2 gap-6 mb-6">
@@ -273,7 +273,7 @@
 
             {{-- SECTION: TEMPAT & WAKTU KEJADIAN --}}
             <div class="mb-8 pb-8 border-b-2 border-gray-200">
-                <h3 class="text-xl font-bold text-gray-800 mb-4">📍 Tempat & Waktu Kejadian</h3>
+                <h3 class="text-xl font-bold text-gray-800 mb-4"> Tempat & Waktu Kejadian</h3>
 
                 <div class="grid md:grid-cols-2 gap-6 mb-6">
                     <div>
@@ -428,7 +428,7 @@
             <!-- Buttons -->
             <div class="flex gap-4">
                 <button type="submit" class="bg-green-800 hover:bg-green-900 text-white px-8 py-3 rounded-lg font-semibold transition duration-300 shadow-lg">
-                    💾 Update Perkara
+                     Update Perkara
                 </button>
                 <a href="{{ route('admin.perkaras.index') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-8 py-3 rounded-lg font-semibold transition duration-300">
                     ❌ Batal

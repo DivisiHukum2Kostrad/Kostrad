@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - SIPERKARA DIV-2</title>
+    <title>Dashboard Admin - DivisiHukum2Kostrad</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -62,8 +62,8 @@
                         </div>
                         <div>
                             <h1 class="text-white font-bold text-lg group-hover:text-green-200 transition-colors">
-                                SIPERKARA DIV-2</h1>
-                            <p class="text-green-200 text-xs">Divisi 2 Kostrad</p>
+                                DivisiHukum2Kostrad</h1>
+                            <p class="text-green-200 text-xs">SIPERKARA DIV-2</p>
                         </div>
                     </a>
                 </div>
