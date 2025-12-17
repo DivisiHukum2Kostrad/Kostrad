@@ -168,22 +168,25 @@
                     </p>
                 </div>
                 <div class="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl shadow-lg">
+                    <h4 class="text-xl font-bold text-gray-800 mb-6 text-center">Statistik Data Publik</h4>
+                    <p class="text-sm text-gray-600 text-center mb-4">Data perkara yang dapat diakses masyarakat</p>
                     <div class="grid grid-cols-2 gap-6 text-center">
                         <div class="bg-white p-6 rounded-xl shadow">
-                            <div class="text-4xl font-bold text-green-800 mb-2">100%</div>
-                            <div class="text-gray-600 text-sm">Digital</div>
+                            <div class="text-4xl font-bold text-green-800 mb-2">{{ $total_perkaras }}</div>
+                            <div class="text-gray-600 text-sm">Total Perkara Publik</div>
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow">
-                            <div class="text-4xl font-bold text-green-800 mb-2">24/7</div>
-                            <div class="text-gray-600 text-sm">Akses Data</div>
+                            <div class="text-4xl font-bold text-blue-600 mb-2">{{ $perkaras_selesai }}</div>
+                            <div class="text-gray-600 text-sm">Selesai</div>
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow">
-                            <div class="text-4xl font-bold text-green-800 mb-2">Aman</div>
-                            <div class="text-gray-600 text-sm">Terenkripsi</div>
+                            <div class="text-4xl font-bold text-yellow-600 mb-2">{{ $perkaras_proses }}</div>
+                            <div class="text-gray-600 text-sm">Dalam Proses</div>
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow">
-                            <div class="text-4xl font-bold text-green-800 mb-2">Real-time</div>
-                            <div class="text-gray-600 text-sm">Update</div>
+                            <div class="text-4xl font-bold text-purple-600 mb-2">
+                                {{ number_format(($perkaras_selesai / max($total_perkaras, 1)) * 100, 1) }}%</div>
+                            <div class="text-gray-600 text-sm">Tingkat Penyelesaian</div>
                         </div>
                     </div>
                 </div>
@@ -221,7 +224,8 @@
 
                 <div class="bg-white border-2 border-gray-200 rounded-2xl p-8 hover-lift">
                     <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
-                        <svg class="w-8 h-8 text-green-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-8 h-8 text-green-800" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -258,62 +262,54 @@
                                     Perkara</th>
                                 <th class="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Jenis
                                     Perkara</th>
+                                <th class="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Kategori
+                                </th>
                                 <th class="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Tanggal</th>
                                 <th class="px-6 py-4 text-left text-sm font-bold uppercase tracking-wider">Status</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                            <tr class="hover:bg-gray-50 transition duration-200">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-semibold text-gray-900">PERK/DIV2/2024/001</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">Pelanggaran Disiplin Militer</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-600">15 Januari 2024</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        Selesai
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-50 transition duration-200">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-semibold text-gray-900">PERK/DIV2/2024/002</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">Pelanggaran Administratif</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-600">22 Februari 2024</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        Selesai
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-50 transition duration-200">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-semibold text-gray-900">PERK/DIV2/2024/003</div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900">Ketidakhadiran Tanpa Izin</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-600">10 Maret 2024</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        Selesai
-                                    </span>
-                                </td>
-                            </tr>
+                            @forelse($preview_perkaras as $perkara)
+                                <tr class="hover:bg-gray-50 transition duration-200">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-semibold text-gray-900">{{ $perkara->nomor_perkara }}
+                                        </div>
+                                        @if ($perkara->nama)
+                                            <div class="text-xs text-gray-500">{{ $perkara->nama }}</div>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="text-sm text-gray-900">{{ $perkara->jenis_perkara }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @if ($perkara->kategori)
+                                            <span class="px-2 py-1 text-xs font-semibold rounded"
+                                                style="background-color: {{ $perkara->kategori->color }}33; color: {{ $perkara->kategori->color }}">
+                                                {{ $perkara->kategori->nama }}
+                                            </span>
+                                        @else
+                                            <span class="text-sm text-gray-400">-</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-600">
+                                            {{ $perkara->tanggal_pendaftaran ? $perkara->tanggal_pendaftaran->format('d M Y') : '-' }}
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span
+                                            class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $perkara->status_badge }}">
+                                            {{ $perkara->status }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="px-6 py-8 text-center text-gray-500">
+                                        Belum ada data perkara publik yang tersedia
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
