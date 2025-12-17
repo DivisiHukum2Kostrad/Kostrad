@@ -53,7 +53,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-18 py-3">
                 <div class="flex items-center space-x-3">
-                    <a href="{{ route('landing') }}" class="flex items-center space-x-3 group">
+                    <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3 group">
                         <div
                             class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
                             <svg class="w-7 h-7 text-green-800" fill="currentColor" viewBox="0 0 20 20">
