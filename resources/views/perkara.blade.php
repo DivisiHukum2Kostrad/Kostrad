@@ -15,31 +15,7 @@
 </head>
 
 <body class="bg-gray-50">
-    <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-green-900 via-green-800 to-green-900 shadow-lg fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-18 py-3">
-                <div class="flex items-center space-x-4">
-                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
-                        <svg class="w-7 h-7 text-green-800" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h1 class="text-white font-bold text-lg">DivisiHukum2Kostrad</h1>
-                        <p class="text-green-200 text-xs">SIPERKARA DIV-2</p>
-                    </div>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="{{ route('landing') }}"
-                        class="text-white hover:text-green-300 font-medium transition duration-300">Beranda</a>
-                    <a href="#" class="text-green-300 font-bold border-b-2 border-green-300">Data Perkara
-                        Publik</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    @include('partials.header')
 
     <!-- Header Section -->
     <section class="pt-32 pb-16 bg-gradient-to-r from-green-900 via-green-800 to-green-900">

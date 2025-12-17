@@ -17,18 +17,45 @@ class PublicController extends Controller
                                    ->take(3)
                                    ->get();
 
-        // Get statistics for landing page (PUBLIC ONLY)
+        // Basic statistics for landing page (PUBLIC ONLY) — similar to Admin Dashboard but scoped to public cases
         $total_perkaras = Perkara::where('is_public', true)->count();
         $perkaras_selesai = Perkara::where('is_public', true)->where('status', 'Selesai')->count();
         $perkaras_proses = Perkara::where('is_public', true)->where('status', 'Proses')->count();
-        $perkaras_publik = Perkara::where('is_public', true)->count();
+
+        // Cases this month (public only)
+        $perkaras_bulan_ini = Perkara::where('is_public', true)
+            ->whereMonth('tanggal_masuk', now()->month)
+            ->whereYear('tanggal_masuk', now()->year)
+            ->count();
+
+        // Completion rate (public only)
+        $completion_rate = $total_perkaras > 0
+            ? round(($perkaras_selesai / $total_perkaras) * 100, 1)
+            : 0;
+
+        // Average completion time for public completed cases (in days)
+        $completedCases = Perkara::where('is_public', true)
+            ->where('status', 'Selesai')
+            ->whereNotNull('tanggal_selesai')
+            ->get();
+
+        if ($completedCases->count() > 0) {
+            $totalDays = $completedCases->sum(function($perkara) {
+                return \Carbon\Carbon::parse($perkara->tanggal_masuk)->diffInDays(\Carbon\Carbon::parse($perkara->tanggal_selesai));
+            });
+            $avg_completion_days = round($totalDays / $completedCases->count(), 1);
+        } else {
+            $avg_completion_days = 0;
+        }
 
         return view('landing', compact(
             'preview_perkaras',
             'total_perkaras',
             'perkaras_selesai',
             'perkaras_proses',
-            'perkaras_publik'
+            'perkaras_bulan_ini',
+            'completion_rate',
+            'avg_completion_days'
         ));
     }
 

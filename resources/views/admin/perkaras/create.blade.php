@@ -373,7 +373,7 @@
 
                 <!-- Upload File -->
                 <div class="mb-6">
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Upload Dokumen (PDF, Max 10MB)</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Upload Dokumen (PDF, Max 5MB)</label>
                     <input type="file" name="file_dokumentasi" accept=".pdf" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-green-800 focus:outline-none @error('file_dokumentasi') border-red-500 @enderror">
                     @error('file_dokumentasi')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

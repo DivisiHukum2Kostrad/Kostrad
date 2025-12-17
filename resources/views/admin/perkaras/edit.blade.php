@@ -510,7 +510,7 @@
                     <!-- Upload File -->
                     <div class="mb-6">
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Upload Dokumen (PDF, Max
-                            10MB)</label>
+                            5MB)</label>
                         @if ($perkara->file_dokumentasi)
                             <div class="mb-2 flex items-center gap-2">
                                 <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">

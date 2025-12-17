@@ -65,48 +65,7 @@
 </head>
 
 <body class="bg-gray-50">
-    <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-green-900 via-green-800 to-green-900 shadow-lg fixed w-full top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-18 py-3">
-                <div class="flex items-center space-x-4">
-                    <!-- ============================================
-                         🔴 GANTI LOGO DI SINI (OPTIONAL)
-                         ============================================
-                         Ganti <div> dengan <img> jika ada logo lokal
-                         Contoh: <img src="/images/logo-kostrad.png" class="w-12 h-12" alt="Logo Kostrad">
-                         ============================================ -->
-                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
-                        <svg class="w-7 h-7 text-green-800" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h1 class="text-white font-bold text-lg">DivisiHukum2Kostrad</h1>
-                        <p class="text-green-200 text-xs">SIPERKARA DIV-2</p>
-                    </div>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#beranda"
-                        class="text-white hover:text-green-300 font-medium transition duration-300">Beranda</a>
-                    <a href="#tentang"
-                        class="text-white hover:text-green-300 font-medium transition duration-300">Tentang Sistem</a>
-                    <a href="#data-perkara"
-                        class="text-white hover:text-green-300 font-medium transition duration-300">Data Perkara
-                        Publik</a>
-                    <a href="#kontak"
-                        class="text-white hover:text-green-300 font-medium transition duration-300">Kontak</a>
-                </div>
-                <button class="md:hidden text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </nav>
+    @include('partials.header')
 
     <!-- Hero Section with Background Image -->
     <!-- ============================================
@@ -132,10 +91,7 @@
                     Divisi 2 Kostrad dengan standar keamanan tinggi dan transparansi yang terukur.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="#data-perkara"
-                        class="bg-white text-green-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-50 transition duration-300 shadow-xl hover:shadow-2xl">
-                        Lihat Data Perkara
-                    </a>
+                    <!-- Lihat Data Perkara CTA removed as requested -->
                     <a href="#tentang"
                         class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-green-900 transition duration-300">
                         Pelajari Lebih Lanjut
@@ -185,7 +141,7 @@
                         </div>
                         <div class="bg-white p-6 rounded-xl shadow">
                             <div class="text-4xl font-bold text-purple-600 mb-2">
-                                {{ number_format(($perkaras_selesai / max($total_perkaras, 1)) * 100, 1) }}%</div>
+                                    {{ $completion_rate }}%</div>
                             <div class="text-gray-600 text-sm">Tingkat Penyelesaian</div>
                         </div>
                     </div>
@@ -466,6 +422,8 @@
                 }
             });
         });
+
+
 
         // Navbar transparency on scroll
         window.addEventListener('scroll', function() {
