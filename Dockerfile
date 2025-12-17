@@ -22,3 +22,12 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Atur permission folder storage
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Copy file script tadi ke dalam docker
+COPY docker-run.sh /usr/local/bin/docker-run.sh
+
+# Berikan izin eksekusi agar bisa dijalankan
+RUN chmod +x /usr/local/bin/docker-run.sh
+
+# Suruh Docker menjalankan script ini saat start
+CMD ["/usr/local/bin/docker-run.sh"]
