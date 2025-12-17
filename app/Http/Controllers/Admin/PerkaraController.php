@@ -10,6 +10,7 @@ use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PerkaraController extends Controller
 {
@@ -20,13 +21,23 @@ class PerkaraController extends Controller
     {
         $query = Perkara::with('kategori');
 
-        // Advanced Search
+        // ✅ Advanced Search - Multi-column search
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('nomor_perkara', 'like', "%{$search}%")
                   ->orWhere('jenis_perkara', 'like', "%{$search}%")
-                  ->orWhere('keterangan', 'like', "%{$search}%");
+                  ->orWhere('nama', 'like', "%{$search}%")
+                  ->orWhere('klasifikasi_perkara', 'like', "%{$search}%")
+                  ->orWhere('status', 'like', "%{$search}%")
+                  ->orWhere('assigned_to', 'like', "%{$search}%")
+                  // Search di JSON array oditur dan terdakwa
+                  ->orWhere('oditur', 'like', "%{$search}%")
+                  ->orWhere('terdakwa', 'like', "%{$search}%")
+                  // Search di pasal dan keterangan
+                  ->orWhere('pasal_dakwaan', 'like', "%{$search}%")
+                  ->orWhere('keterangan', 'like', "%{$search}%")
+                  ->orWhere('tempat_kejadian', 'like', "%{$search}%");
             });
         }
 
@@ -40,6 +51,11 @@ class PerkaraController extends Controller
             $query->where('kategori_id', $request->kategori);
         }
 
+        // ✅ Filter by klasifikasi
+        if ($request->filled('klasifikasi') && $request->klasifikasi !== 'all') {
+            $query->where('klasifikasi_perkara', $request->klasifikasi);
+        }
+
         // Filter by date range
         if ($request->filled('tanggal_dari')) {
             $query->where('tanggal_masuk', '>=', $request->tanggal_dari);
@@ -47,6 +63,15 @@ class PerkaraController extends Controller
 
         if ($request->filled('tanggal_sampai')) {
             $query->where('tanggal_masuk', '<=', $request->tanggal_sampai);
+        }
+
+        // ✅ Filter by year (tanggal pendaftaran) - Compatible MySQL & SQLite
+        if ($request->filled('year') && $request->year !== 'all') {
+            if (DB::connection()->getDriverName() === 'sqlite') {
+                $query->whereRaw("strftime('%Y', tanggal_pendaftaran) = ?", [$request->year]);
+            } else {
+                $query->whereYear('tanggal_pendaftaran', $request->year);
+            }
         }
 
         // Filter by public visibility
@@ -83,7 +108,7 @@ class PerkaraController extends Controller
         $sortBy = $request->get('sort_by', 'created_at');
         $sortDir = $request->get('sort_dir', 'desc');
 
-        $allowedSorts = ['created_at', 'deadline', 'priority', 'progress', 'tanggal_perkara'];
+        $allowedSorts = ['created_at', 'deadline', 'priority', 'progress', 'tanggal_perkara', 'tanggal_pendaftaran', 'nomor_perkara'];
         if (in_array($sortBy, $allowedSorts)) {
             $query->orderBy($sortBy, $sortDir);
         } else {
@@ -93,13 +118,30 @@ class PerkaraController extends Controller
         $perkaras = $query->paginate(15)->withQueryString();
         $kategoris = Kategori::all();
 
+        // ✅ Get unique klasifikasi untuk dropdown filter
+        $klasifikasiList = Perkara::whereNotNull('klasifikasi_perkara')
+            ->distinct()
+            ->pluck('klasifikasi_perkara')
+            ->sort();
+
         // Get unique assigned names for filter
         $assignedUsers = Perkara::whereNotNull('assigned_to')
             ->distinct()
             ->pluck('assigned_to')
             ->sort();
 
-        return view('admin.perkaras.index', compact('perkaras', 'kategoris', 'assignedUsers'));
+        // ✅ Get available years untuk filter tahun - Compatible MySQL & SQLite
+        $availableYears = Perkara::whereNotNull('tanggal_pendaftaran')
+            ->get()
+            ->map(function($perkara) {
+                return $perkara->tanggal_pendaftaran->format('Y');
+            })
+            ->unique()
+            ->sort()
+            ->reverse()
+            ->values();
+
+        return view('admin.perkaras.index', compact('perkaras', 'kategoris', 'assignedUsers', 'klasifikasiList', 'availableYears'));
     }
 
     /**
@@ -397,6 +439,8 @@ class PerkaraController extends Controller
             $query->where(function($q) use ($search) {
                 $q->where('nomor_perkara', 'like', "%{$search}%")
                   ->orWhere('jenis_perkara', 'like', "%{$search}%")
+                  ->orWhere('nama', 'like', "%{$search}%")
+                  ->orWhere('klasifikasi_perkara', 'like', "%{$search}%")
                   ->orWhere('keterangan', 'like', "%{$search}%");
             });
         }
@@ -436,10 +480,13 @@ class PerkaraController extends Controller
             fputcsv($file, [
                 'Nomor Perkara',
                 'Jenis Perkara',
+                'Klasifikasi',
                 'Kategori',
                 'Tanggal Masuk',
                 'Tanggal Selesai',
                 'Status',
+                'Oditur',
+                'Terdakwa',
                 'Keterangan',
                 'Publik'
             ]);
@@ -449,10 +496,13 @@ class PerkaraController extends Controller
                 fputcsv($file, [
                     $perkara->nomor_perkara,
                     $perkara->jenis_perkara,
+                    $perkara->klasifikasi_perkara ?? '-',
                     $perkara->kategori->nama ?? '-',
                     $perkara->tanggal_masuk->format('d/m/Y'),
                     $perkara->tanggal_selesai ? $perkara->tanggal_selesai->format('d/m/Y') : '-',
                     $perkara->status,
+                    is_array($perkara->oditur) ? implode(', ', $perkara->oditur) : '-',
+                    is_array($perkara->terdakwa) ? implode(', ', $perkara->terdakwa) : '-',
                     $perkara->keterangan ?? '-',
                     $perkara->is_public ? 'Ya' : 'Tidak'
                 ]);
@@ -463,14 +513,15 @@ class PerkaraController extends Controller
 
         return response()->stream($callback, 200, $headers);
     }
-    public function showPublic($id)
-{
-    $perkara = Perkara::with('kategori')
-        ->where('is_public', true)
-        ->findOrFail($id);
 
-    return view('perkara.show', compact('perkara'));
-}
+    public function showPublic($id)
+    {
+        $perkara = Perkara::with('kategori')
+            ->where('is_public', true)
+            ->findOrFail($id);
+
+        return view('perkara.show', compact('perkara'));
+    }
 
     /**
      * Export perkaras to PDF
