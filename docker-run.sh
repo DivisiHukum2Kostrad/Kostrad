@@ -4,8 +4,8 @@ set -e
 
 # Jalankan migrasi database
 echo "🛠️ Sedang menjalankan migrasi..."
-php artisan migrate --force
-# php artisan migrate:fresh --force
+# php artisan migrate --force
+php artisan migrate:fresh --force
 
 # (Opsional) Jalankan Seeder jika perlu data awal
 php artisan db:seed --force
